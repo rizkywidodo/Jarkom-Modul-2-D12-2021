@@ -96,8 +96,9 @@ Buat subdomain **super.franky.yyy.com** dengan alias **www.super.franky.yyy.com*
 ### Solusi
 Pertama pada EniesLobby, mengedit file /etc/bind/kaizoku/franky.d12.com dengan command `vi /etc/bind/kaizoku/franky.d12.com` dan menambahkan
 ```
-ns1     IN      A       10.27.2.4	; IP Skypie
+ns1       IN      A       10.27.2.4	; IP Skypie
 super   IN      NS      ns1
+
 ```
 
 ![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/3_1.jpg?raw=true)
@@ -266,6 +267,40 @@ Untuk mengeceknya, melakukan command `ping www.general.mecha.franky.d12.com` pad
 ![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/7_4.jpg?raw=true)
 
 ## SOAL 8
+Setelah melakukan konfigurasi server, maka dilakukan konfigurasi Webserver. Pertama dengan webserver www.franky.yyy.com. Buat webserver dengan DocumentRoot pada /var/www/franky.yyy.com.
+###Solusi:
+Pada EniesLobby, memastikan bahwa IP mengarah ke web server (Skypie) pada  vi /etc/bind/kaizoku/franky.d12.com dengan konfigurasi 
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_0.jpg?raw=true)
+
+Pada Skypie menginstal apache2, php, libapache2-mod-php7.0. Untuk command instalasinya dapat disimpan di dalam script.sh.
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_1.jpg?raw=true)
+
+Langkah selanjutnya yaitu mendownload file yang diperlukan dengan command `wget` selanjutnya file di-extract menggunakan command `unzip`
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_2.jpg?raw=true)
+
+Lalu berpindah ke direktori /etc/apache2/sites-available kemudian mengcopy file 000-default.conf menjadi franky.d12.com.conf dengan command `cp file 000-default.conf franky.d12.com.conf`
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_3.jpg?raw=true)
+
+Mengedit file franky.d12.com.conf dengan command `vi franky.d12.com.conf` dan mengubahnya menjadi
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/franky.d12.com
+        Servername franky.d12.com
+        ServerAlias www.franky.d12.com
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_4.jpg?raw=true)
+
+Kemudian membuat directory baru dengan nama franky.d12.com pada /var/www/ menggunakan command `mkdir /var/www/franky.d12.com.` Lalu mengcopy isi dari folder franky yang telah didownload ke /var/www/franky.d12.com dengan command` cp -r /root/Praktikum-Modul-2-Jarkom-main/franky/* /var/www/franky.d12.com`
+
+Setelah itu menjalankan `command a2ensite franky.d1.com dan service apache2 restart`
+
+Untuk mengeceknya pada Loguetown menggunakan command `lynx franky.d12.com.` Bila berhasil maka hasilnya 
+
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_5.jpg?raw=true)
 
 ## SOAL 9
 
@@ -286,7 +321,3 @@ Untuk mengeceknya, melakukan command `ping www.general.mecha.franky.d12.com` pad
 ## SOAL 17
 
 ### Kendala Selama Pengerjaan
-Adapaun beberapa kendala yang kami alami selama pengerjaan soal yaitu sebagai berikut:
-1. Ketika lupa tidak menaruh command di root atau script, beberapa konfigurasi bisa hilang saat project di start yang bisa menyebabkan error dan harus menulis kembali konfigurasinya.
-2. Mengalami kendala saat menggunakan regex sehingga command tidak sesuai dengan yang dibutuhkan.
-3. Kesalahan penulisan command juga bisa menyebabkan error.
