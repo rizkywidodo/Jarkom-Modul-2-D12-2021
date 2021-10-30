@@ -389,11 +389,12 @@ Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/
 ![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/12_2.jpg?raw=true)
 
 ## SOAL 13
-Luffy juga meminta Nami untuk dibuatkan konfigurasi virtual host. Virtual host ini bertujuan untuk dapat mengakses file asset www.super.franky.yyy.com/public/js menjadi www.super.franky.yyy.com/js.
+Luffy juga meminta Nami untuk dibuatkan konfigurasi virtual host. Virtual host ini bertujuan untuk dapat mengakses file asset **www.super.franky.yyy.com/public/js** menjadi **www.super.franky.yyy.com/js**.
 ### Solusi:
 Pada Skypie, berpindah ke direktori /etc/apache2/sites-available dan mengedit file super.franky.d12.com.conf menjadi
-
+```
 Alias "/js" "/var/www/super.franky.d12.com/public/js"
+```
 
 ![13_1](./images/13_1.jpg)
 
@@ -403,28 +404,27 @@ Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/
 
 ![13_2](./images/13_2.jpg)
 
-
 ## SOAL 14
-Dan Luffy meminta untuk web www.general.mecha.franky.yyy.com hanya bisa diakses dengan port 15000 dan port 15500
+Dan Luffy meminta untuk web **www.general.mecha.franky.yyy.com** hanya bisa diakses dengan port 15000 dan port 15500
 ### Solusi:
 
-Pada Skypie, berpindah ke direktori /etc/apache2/sites-available dan mengcopy file 000-default.conf ke file general.mecha.franky.d12.com dengan command cp 000-default.conf general.mecha.franky.d12.com dan mengeditnya sehingga menjadi 
+Pada Skypie, berpindah ke direktori /etc/apache2/sites-available dan mengcopy file 000-default.conf ke file general.mecha.franky.d12.com dengan command `cp 000-default.conf general.mecha.franky.d12.com` dan mengeditnya sehingga menjadi 
 
 ![14_1](./images/14_1.jpg)
 
-Kemudian berpindah ke sebuah file dengan command vi /etc/apache2/ports.conf dan menambahkan
-
+Kemudian berpindah ke sebuah file dengan command `vi /etc/apache2/ports.conf` dan menambahkan
+```
 Listen 15000
-
 Listen 15500
+```
 
 ![14_2](./images/14_2.jpg)
 
-Kemudian membuat directory baru dengan nama `general.mecha.franky.d12.com` pada /var/www/ menggunakan command `mkdir /var/www/general.mecha.franky.d12.com.` Lalu mengcopy isi dari folder general.mecha.franky yang telah didownload ke `/var/www/general.mecha.franky.d12.com` dengan command `cp -r /root/Praktikum-Modul-2-Jarkom-main/general.mecha.franky/* /var/www/general.mecha.franky.d12.com.`
+Kemudian membuat directory baru dengan nama general.mecha.franky.d12.com pada /var/www/ menggunakan command `mkdir /var/www/general.mecha.franky.d12.com.` Lalu mengcopy isi dari folder general.mecha.franky yang telah didownload ke /var/www/general.mecha.franky.d12.com dengan command `cp -r /root/Praktikum-Modul-2-Jarkom-main/general.mecha.franky/* /var/www/general.mecha.franky.d12.com`.
 
 ![14_3](./images/14_3.jpg)
 
-Setelah itu menjalankan command a2ensite super.franky.d12.com dan service apache2 restart
+Setelah itu menjalankan command `a2ensite super.franky.d12.com` dan `service apache2 restart`
 
 Untuk mengeceknya pada Loguetown menggunakan command `lynx http://10.27.2.4:15000` , bila berhasil maka hasilnya 
 
@@ -438,29 +438,29 @@ Menjalankan perintah `htpasswd -c /etc/apache2/.htpasswd luffy` kemudian mengisi
 
 ![15_1](./images/15_1.jpg)
 
-Mengedit file dengan command vi /etc/apache2/sites-available/general.mecha.franky.d12.com menjadi
+Mengedit file dengan command `vi /etc/apache2/sites-available/general.mecha.franky.d12.com` menjadi
 ```
-      <Directory /var/www/general.mecha.franky.d12.com>
-                Options +FollowSymLinks -Multiviews
-                AllowOverride All
-        </Directory>
+<Directory /var/www/general.mecha.franky.d12.com>
+        Options +FollowSymLinks -Multiviews
+        AllowOverride All
+</Directory>
 ```
 
 ![15_2](./images/15_2.jpg)
 
 Membuat file .htaccess pada direktori /var/www/general.mecha.franky.d12.com. Lalu menambahkan
-
 ```
 AuthType Basic
-    AuthName "Restricted Content"
-    AuthUserFile /etc/apache2/.htpasswd
-    Require valid-user
+AuthName "Restricted Content"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
 
 ```
 
 ![15_3](./images/15_3.jpg)
 
-Menjalankan `service apache2 restart`
+Menjalankan `service apache2 restart`.
+
 Untuk mengeceknya pada Loguetown menggunakan command `lynx http://10.27.2.4:15000` , nanti akan diminta memasukkan username dan password. Apabila berhasil maka hasilnya
 
 ![15_4](./images/15_4.jpg)
@@ -489,7 +489,7 @@ Kemudian berpindah ke direktori `/etc/apache2/sites-available` dan mengedit file
 <Directory /var/www/html>
         Options +FollowSymLinks -Multiviews
         AllowOverride All
-    </Directory>
+</Directory>
 
 ```
 
@@ -502,23 +502,21 @@ Untuk mengeceknya pada Loguetown menggunakan command `lynx http://10.27.2.4` , b
 ![16_3](./images/16_3.jpg)
 
 ## SOAL 17
-Dikarenakan Franky juga ingin mengajak temannya untuk dapat menghubunginya melalui website www.super.franky.yyy.com, dan dikarenakan pengunjung web server pasti akan bingung dengan randomnya images yang ada, maka Franky juga meminta untuk mengganti request gambar yang memiliki substring “franky” akan diarahkan menuju franky.png. Maka bantulah Luffy untuk membuat konfigurasi dns dan web server ini!
+Dikarenakan Franky juga ingin mengajak temannya untuk dapat menghubunginya melalui website **www.super.franky.yyy.com**, dan dikarenakan pengunjung web server pasti akan bingung dengan randomnya images yang ada, maka Franky juga meminta untuk mengganti request gambar yang memiliki substring “franky” akan diarahkan menuju franky.png. Maka bantulah Luffy untuk membuat konfigurasi dns dan web server ini!
 ### Solusi:
 
 Berpindah ke direktori `/etc/apache2/sites-available` dan mengedit file super.franky.d12.com.conf menjadi
-
 ```
 <Directory /var/www/super.franky.d12.com>
-                Options +FollowSymLinks -Multiviews
-                AllowOverride All
-        </Directory>
+        Options +FollowSymLinks -Multiviews
+        AllowOverride All
+</Directory>
 
 ```
 
 ![17_1](./images/17_1.jpg)
 
 Membuat file .htaccess pada direktori /var/www/super.franky.d12.com. Lalu menambahkan
-
 ```
 RewriteEngine On
 RewriteRule ^(.*)franky(.*)\.(jpg|gif|png)$ http://super.franky.d12.com/public/images/franky.png [L,R]
