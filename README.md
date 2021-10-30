@@ -96,9 +96,8 @@ Buat subdomain **super.franky.yyy.com** dengan alias **www.super.franky.yyy.com*
 ### Solusi
 Pertama pada EniesLobby, mengedit file /etc/bind/kaizoku/franky.d12.com dengan command `vi /etc/bind/kaizoku/franky.d12.com` dan menambahkan
 ```
-ns1       IN      A       10.27.2.4	; IP Skypie
+ns1     IN      A       10.27.2.4	; IP Skypie
 super   IN      NS      ns1
-
 ```
 
 ![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/3_1.jpg?raw=true)
@@ -287,3 +286,7 @@ Untuk mengeceknya, melakukan command `ping www.general.mecha.franky.d12.com` pad
 ## SOAL 17
 
 ### Kendala Selama Pengerjaan
+Adapaun beberapa kendala yang kami alami selama pengerjaan soal yaitu sebagai berikut:
+1. Ketika lupa tidak menaruh command di root atau script, beberapa konfigurasi bisa hilang saat project di start yang bisa menyebabkan error dan harus menulis kembali konfigurasinya.
+2. Mengalami kendala saat menggunakan regex sehingga command tidak sesuai dengan yang dibutuhkan.
+3. Kesalahan penulisan command juga bisa menyebabkan error.
