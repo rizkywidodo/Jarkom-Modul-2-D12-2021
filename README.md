@@ -399,3 +399,7 @@ Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/
 ## SOAL 17
 
 ### Kendala Selama Pengerjaan
+Adapun beberapa kendala yang kami alami selama pengerjaan soal yaitu sebagai berikut:
+1. Ketika lupa meletakkan command pada root atau script, saat project di close dan akan di start kembali ada beberapa konfigurasi yang hilang yang bisa menyebabkan error dan harus mengetik ulang.
+2. Mengalami kendala saat menggunakan regex sesuai dengan yang dibutuhkan.
+3. Mengalami beberapa kesalahan penulisan command.
