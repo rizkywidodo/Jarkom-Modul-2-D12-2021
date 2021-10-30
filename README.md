@@ -389,6 +389,16 @@ Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/
 ![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/12_2.jpg?raw=true)
 
 ## SOAL 13
+Luffy juga meminta Nami untuk dibuatkan konfigurasi virtual host. Virtual host ini bertujuan untuk dapat mengakses file asset www.super.franky.yyy.com/public/js menjadi www.super.franky.yyy.com/js.
+### Solusi:
+Pada Skypie, berpindah ke direktori /etc/apache2/sites-available dan mengedit file super.franky.d12.com.conf menjadi
+
+Alias "/js" "/var/www/super.franky.d12.com/public/js"
+![13_1](./images/13_1.jpg)
+Menjalankan command `service apache2 restart`
+
+Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/js` , bila berhasil maka hasilnya 
+
 
 ## SOAL 14
 
