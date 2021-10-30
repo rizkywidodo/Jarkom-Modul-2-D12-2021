@@ -303,12 +303,93 @@ Untuk mengeceknya pada Loguetown menggunakan command `lynx franky.d12.com.` Bila
 ![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/8_5.jpg?raw=true)
 
 ## SOAL 9
+Setelah itu, Luffy juga membutuhkan agar url www.franky.yyy.com/index.php/home dapat menjadi menjadi www.franky.yyy.com/home. 
+###Solusi:
+Pada Skypie /etc/apache2/sites-available, menjalankan perintah `a2enmod rewrite` kemudian `service apache2 restart`.
+
+Kemudian berpindah ke directory /var/www/franky.d12.com dan membuat file .htaccess dengan command `vi .htaccess` dengan isi file:
+
+```bash
+    RewriteEngine On
+    RewriteRule ^home$ index.php/home
+```
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/9_1.jpg?raw=true)
+
+Kemudian membuka file /etc/apache2/sites-available/franky.d12.com.conf dan menambahkan:
+```bash
+    <Directory /var/www/franky.d12.com>
+        Options +FollowSymLinks -Multiviews
+        AllowOverride All
+    </Directory>
+```
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/9_2.jpg?raw=true)
+
+Menjalankan command `service apache2 restart`
+
+Untuk mengeceknya pada Loguetown menggunakan command `lynx franky.d12.com/home` , bila berhasil maka hasilnya 
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/9_3.jpg?raw=true)
+
 
 ## SOAL 10
+Pada subdomain www.super.franky.yyy.com, Luffy membutuhkan penyimpanan aset yang memiliki DocumentRoot pada /var/www/super.franky.yyy.com.
+###Solusi:
+
+Pertama, memindahkan ke directory /etc/apache2/sites-available. Kemudian mencopy file 000-default.conf menjadi file super.franky.d12.com.conf dengan command `cp 000-default.conf super.franky.d12.com.conf`. Lalu mengedit file super.franky.d12.com.conf agar menjadi sebagai berikut
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/super.franky.d12.com
+        ServerName super.franky.d12.com
+        ServerAlias www.super.franky.d12.com
+
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/10_1.jpg?raw=true)
+
+Kemudian membuat directory baru dengan nama super.franky.d12.com pada /var/www/ menggunakan command mkdir /var/www/super.franky.d12.com. Lalu mengcopy isi dari folder super.franky yang telah didownload ke /var/www/super.franky.d12.com dengan command `cp -r /root/Praktikum-Modul-2-Jarkom-main/super.franky/* /var/www/super.franky.d12.com.`
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/10_2.jpg?raw=true)
+
+Setelah itu menjalankan command `a2ensite super.franky.d12.com` dan `service apache2 restart`
+
+Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com` , bila berhasil maka hasilnya 
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/10_3.jpg?raw=true)
+
 
 ## SOAL 11
+Akan tetapi, pada folder /public, Luffy ingin hanya dapat melakukan directory listing saja.
+###Solusi:
+
+Pada Skypie, berpindah ke direktori /etc/apache2/sites-available dan mengedit file super.franky.d12.com.conf menjadi
+
+<Directory /var/www/super.franky.d12.com/public>
+                Options +Indexes
+</Directory>
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/11_1.jpg?raw=true)
+
+Menjalankan command `service apache2 restart`
+
+Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/public` , bila berhasil maka hasilnya 
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/11_2.jpg?raw=true)
+
 
 ## SOAL 12
+Tidak hanya itu, Luffy juga menyiapkan error file 404.html pada folder /error untuk mengganti error kode pada apache
+###Solusi:
+
+Pada Skypie, berpindah ke direktori /etc/apache2/sites-available dan mengedit file super.franky.d12.com.conf menjadi
+
+ErrorDocument 404 /error/404.html
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/12_1.jpg?raw=true)
+
+Menjalankan command `service apache2 restart`
+
+Untuk mengeceknya pada Loguetown menggunakan command `lynx super.franky.d12.com/halo` , bila berhasil maka hasilnya 
+
+![alt text](https://github.com/rizkywidodo/Jarkom-Modul-2-D12-2021/blob/main/images/12_2.jpg?raw=true)
 
 ## SOAL 13
 
